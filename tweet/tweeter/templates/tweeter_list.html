@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}
+tweeter demo
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">Wlcome to Tweeter Project</h1>
+
+<a class="btn btn-primary" href="{% url 'tweeter_create' %}">Create Tweet</a>
+<div class="container row gap-3">
+    {% for tweeter in tweets %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{tweeter.photo.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{tweeter.user.username}}</h5>
+          <p class="card-text">{{tweeter.text}}</p>
+          {% if tweeter.user == user%}
+          <a href="{% url 'tweeter_edit' tweeter.id%}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'tweeter_delete' tweeter.id%}" class="btn btn-danger">delete</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
